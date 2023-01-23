@@ -3,16 +3,23 @@ import sys
 from threading import Thread
 import numpy as np
 
-#Setando paramêtros
-users_file = sys.argv[1] #Arquivo de usuário no primeiro parametro
-password_test = sys.argv[2] #Senha a ser usada
-number_threads = int(sys.argv[3]) #Número de threds desejadas
 
-#Lendo o arquivo de texto
-with open(users_file) as f:
-    users_list = [(line.strip()) for line in f.readlines()]
+arg_help = "$ python bass_spray.py users.txt password number_of_threads"
+try:
+    #Setando paramêtros
+    users_file = sys.argv[1] #Arquivo de usuário no primeiro parametro
+    password_test = sys.argv[2] #Senha a ser usada
+    number_threads = int(sys.argv[3]) #Número de threds desejadas
 
-split_list = np.array_split(users_list, number_threads) #Dividindo a lista para threads
+    #Lendo o arquivo de texto
+    with open(users_file) as f:
+        users_list = [(line.strip()) for line in f.readlines()]
+    
+    split_list = np.array_split(users_list, number_threads) #Dividindo a lista de acordo com as threads
+except:
+    print(arg_help)
+    sys.exit(2)
+
 
 #Função de tentativa de login
 def login(thread_number):
@@ -41,6 +48,13 @@ def create_threads(n):
     for t in threads:
         t.join()
 
-#Cria threads e inicia o ataque
-create_threads(number_threads)
+#Executar o brute tratando excessões
+def main():
+    try:
+        create_threads(number_threads)
+    except:
+        print(arg_help)
+        sys.exit(2)
 
+if __name__ == "__main__":
+    main()
