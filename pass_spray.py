@@ -4,7 +4,7 @@ from threading import Thread
 import numpy as np
 
 
-arg_help = "$ python bass_spray.py users.txt password number_of_threads"
+arg_help = "$ python pass_spray.py users.txt password number_of_threads"
 try:
     #Setando paramêtros
     users_file = sys.argv[1] #Arquivo de usuário no primeiro parametro
