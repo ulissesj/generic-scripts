@@ -31,6 +31,7 @@ def login(thread_number):
         if (login_try.status_code == 200):
             print("User found!!")
             print(user, password_test)
+            sys.exit()
 
 #Creating thread for reading tokens and executing the request
 threads = []
